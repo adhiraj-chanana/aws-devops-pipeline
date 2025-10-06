@@ -4,7 +4,9 @@ phases:
   install:
     runtime-versions:
       java: corretto8
-      python: 3.8           # ✅ Added: ensures Python is available for AutoGuard
+    commands:
+      - echo "🔧 Installing Python for AutoGuard..."
+      - yum install -y python3
   pre_build:
     commands:
       - echo "🔒 Running AutoGuard security scan..."
