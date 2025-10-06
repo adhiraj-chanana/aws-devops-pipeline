@@ -4,24 +4,30 @@ phases:
   install:
     runtime-versions:
       java: corretto8
+      python: 3.8           # ✅ Added: ensures Python is available for AutoGuard
   pre_build:
     commands:
-      - echo Logging in to AWS CodeArtifact...
+      - echo "🔒 Running AutoGuard security scan..."
+      - python3 autoguard.py || { echo "❌ AutoGuard scan failed. Exiting build."; exit 1; }
+      - echo "✅ AutoGuard scan passed. Proceeding to build."
+      - echo "🔑 Logging in to AWS CodeArtifact..."
       - CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nextwork --domain-owner 665910433454 --region us-east-1 --query authorizationToken --output text`
       - export CODEARTIFACT_AUTH_TOKEN
+
   build:
     commands:
-      - echo Build started on `date`
+      - echo "🏗️ Build started on `date`"
       - mvn clean install -s settings.xml
+
   post_build:
     commands:
-      - echo Build completed on `date`
-      - echo Packaging artifacts...
+      - echo "✅ Build completed on `date`"
+      - echo "📦 Packaging artifacts..."
       - mvn package -s settings.xml
+
 artifacts:
   files:
     - target/nextwork-web-project.war
     - appspec.yml
     - scripts/**/*
   discard-paths: no
-
