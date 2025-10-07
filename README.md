@@ -183,13 +183,3 @@ Implementing fail-fast security gates to prevent unsafe deployments
 
 🏗️ Support multi-environment (Dev → Staging → Prod) pipelines
 
-💼 Credits
-Created by Adhiraj Chanana
-🧩 AI Engineer & DevSecOps Enthusiast @ Michigan State University
-📫 chananaa@msu.edu
-🔗 linkedin.com/in/adhiraj-chanana
-
-🌐 Project Links
-GitHub Repository: github.com/adhiraj-chanana/autoguard-ci-cd
-
-Architecture Diagram: /docs/architecture.png
